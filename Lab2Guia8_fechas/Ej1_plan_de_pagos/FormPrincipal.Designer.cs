@@ -36,7 +36,7 @@ namespace Ej1_plan_de_pagos
             this.label2 = new System.Windows.Forms.Label();
             this.tbDni = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbDatosPago = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.nupCuotas = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
@@ -55,26 +55,27 @@ namespace Ej1_plan_de_pagos
             this.importraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarPlanesDePagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gbDatosPago.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupCuotas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(224, 278);
+            this.btnNuevo.Location = new System.Drawing.Point(372, 293);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(198, 45);
             this.btnNuevo.TabIndex = 9;
-            this.btnNuevo.Text = "Ingresar Plan de pagos";
+            this.btnNuevo.Text = "Crear Plan de pagos";
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // tbApellidosYNombres
             // 
-            this.tbApellidosYNombres.Location = new System.Drawing.Point(183, 54);
+            this.tbApellidosYNombres.Location = new System.Drawing.Point(184, 68);
             this.tbApellidosYNombres.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbApellidosYNombres.Name = "tbApellidosYNombres";
             this.tbApellidosYNombres.Size = new System.Drawing.Size(224, 26);
@@ -83,6 +84,7 @@ namespace Ej1_plan_de_pagos
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.tbDni);
             this.groupBox1.Controls.Add(this.label1);
@@ -91,15 +93,15 @@ namespace Ej1_plan_de_pagos
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(648, 95);
+            this.groupBox1.Size = new System.Drawing.Size(574, 110);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Datos del cliente";
+            this.groupBox1.Text = "Datos del Infractor";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 54);
+            this.label2.Location = new System.Drawing.Point(6, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(152, 20);
             this.label2.TabIndex = 19;
@@ -107,7 +109,7 @@ namespace Ej1_plan_de_pagos
             // 
             // tbDni
             // 
-            this.tbDni.Location = new System.Drawing.Point(183, 19);
+            this.tbDni.Location = new System.Drawing.Point(184, 27);
             this.tbDni.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(224, 26);
@@ -118,28 +120,28 @@ namespace Ej1_plan_de_pagos
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(123, 22);
+            this.label1.Location = new System.Drawing.Point(121, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 20);
             this.label1.TabIndex = 17;
             this.label1.Text = "DNI";
             // 
-            // groupBox2
+            // gbDatosPago
             // 
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.nupCuotas);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.tbMonto);
-            this.groupBox2.Controls.Add(this.pickerInicio);
-            this.groupBox2.Location = new System.Drawing.Point(14, 136);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Size = new System.Drawing.Size(648, 132);
-            this.groupBox2.TabIndex = 20;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Datos del pago";
+            this.gbDatosPago.Controls.Add(this.label5);
+            this.gbDatosPago.Controls.Add(this.nupCuotas);
+            this.gbDatosPago.Controls.Add(this.label4);
+            this.gbDatosPago.Controls.Add(this.label3);
+            this.gbDatosPago.Controls.Add(this.tbMonto);
+            this.gbDatosPago.Controls.Add(this.pickerInicio);
+            this.gbDatosPago.Location = new System.Drawing.Point(14, 152);
+            this.gbDatosPago.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbDatosPago.Name = "gbDatosPago";
+            this.gbDatosPago.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbDatosPago.Size = new System.Drawing.Size(574, 132);
+            this.gbDatosPago.TabIndex = 20;
+            this.gbDatosPago.TabStop = false;
+            this.gbDatosPago.Text = "Datos del pago";
             // 
             // label5
             // 
@@ -198,18 +200,18 @@ namespace Ej1_plan_de_pagos
             // tbDetalle
             // 
             this.tbDetalle.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDetalle.Location = new System.Drawing.Point(10, 331);
+            this.tbDetalle.Location = new System.Drawing.Point(11, 347);
             this.tbDetalle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbDetalle.Multiline = true;
             this.tbDetalle.Name = "tbDetalle";
-            this.tbDetalle.Size = new System.Drawing.Size(651, 237);
+            this.tbDetalle.Size = new System.Drawing.Size(577, 216);
             this.tbDetalle.TabIndex = 21;
             // 
             // lbxPlanesGenerados
             // 
             this.lbxPlanesGenerados.FormattingEnabled = true;
             this.lbxPlanesGenerados.ItemHeight = 20;
-            this.lbxPlanesGenerados.Location = new System.Drawing.Point(680, 34);
+            this.lbxPlanesGenerados.Location = new System.Drawing.Point(615, 34);
             this.lbxPlanesGenerados.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lbxPlanesGenerados.Name = "lbxPlanesGenerados";
             this.lbxPlanesGenerados.Size = new System.Drawing.Size(274, 244);
@@ -225,7 +227,7 @@ namespace Ej1_plan_de_pagos
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(958, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(902, 29);
             this.menuStrip1.TabIndex = 23;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -239,13 +241,13 @@ namespace Ej1_plan_de_pagos
             this.configuraciónToolStripMenuItem.Name = "configuraciónToolStripMenuItem";
             this.configuraciónToolStripMenuItem.Size = new System.Drawing.Size(120, 25);
             this.configuraciónToolStripMenuItem.Text = "Configuración";
-            this.configuraciónToolStripMenuItem.Click += new System.EventHandler(this.btnAgregarFeriado_Click);
             // 
             // agregarFeriadosToolStripMenuItem
             // 
             this.agregarFeriadosToolStripMenuItem.Name = "agregarFeriadosToolStripMenuItem";
             this.agregarFeriadosToolStripMenuItem.Size = new System.Drawing.Size(199, 26);
             this.agregarFeriadosToolStripMenuItem.Text = "Agregar Feriados";
+            this.agregarFeriadosToolStripMenuItem.Click += new System.EventHandler(this.btnAgregarFeriado_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -271,7 +273,7 @@ namespace Ej1_plan_de_pagos
             // importraciónToolStripMenuItem
             // 
             this.importraciónToolStripMenuItem.Name = "importraciónToolStripMenuItem";
-            this.importraciónToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.importraciónToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
             this.importraciónToolStripMenuItem.Text = "Importación";
             this.importraciónToolStripMenuItem.Click += new System.EventHandler(this.importraciónToolStripMenuItem_Click);
             // 
@@ -287,17 +289,28 @@ namespace Ej1_plan_de_pagos
             // exportarPlanesDePagoToolStripMenuItem
             // 
             this.exportarPlanesDePagoToolStripMenuItem.Name = "exportarPlanesDePagoToolStripMenuItem";
-            this.exportarPlanesDePagoToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.exportarPlanesDePagoToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.exportarPlanesDePagoToolStripMenuItem.Text = "Exportar planes de pago";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(443, 19);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 59);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Buscar Infractor";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(958, 576);
+            this.ClientSize = new System.Drawing.Size(902, 576);
             this.Controls.Add(this.lbxPlanesGenerados);
             this.Controls.Add(this.tbDetalle);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.gbDatosPago);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.menuStrip1);
@@ -310,11 +323,12 @@ namespace Ej1_plan_de_pagos
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema de plan de pagos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbDatosPago.ResumeLayout(false);
+            this.gbDatosPago.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupCuotas)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -330,7 +344,7 @@ namespace Ej1_plan_de_pagos
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbDni;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gbDatosPago;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbMonto;
@@ -349,6 +363,7 @@ namespace Ej1_plan_de_pagos
         private System.Windows.Forms.ToolStripMenuItem importraciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem planesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportarPlanesDePagoToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }
 

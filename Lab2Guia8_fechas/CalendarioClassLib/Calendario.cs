@@ -6,9 +6,25 @@ using System.Threading.Tasks;
 
 namespace CalendarioClassLib.Modelo
 {
+    [Serializable]
     public class Calendario
     {
         List<Feriado> feriados = new List<Feriado>();
+        public int CantidadFeriados 
+        { 
+            get 
+            {
+                return feriados.Count; 
+            } 
+        }
+
+        public Feriado this[int idx]
+        {
+            get 
+            {
+                return feriados[idx];
+            }
+        }
 
         public Feriado Buscar(DateTime fecha)
         {

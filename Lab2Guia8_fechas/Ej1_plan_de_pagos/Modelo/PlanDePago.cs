@@ -103,7 +103,7 @@ namespace Ej1_plan_de_pagos.Modelo
 
         public override string ToString()
         {
-            return $"Plan de pagos: {Destinatario.ApelldosyNombres}";
+            return $"Plan de pagos: {Destinatario.ApelldosYNombres}";
         }
 
         public string VerDetalle() 

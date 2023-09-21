@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CalendarioClassLib.Modelo
 {
+    [Serializable]
     public class Feriado
     {
         public DateTime Dia { get; set; }

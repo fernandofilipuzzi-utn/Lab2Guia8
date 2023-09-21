@@ -18,7 +18,10 @@ namespace Ej1_plan_de_pagos
 {
     public partial class FormPrincipal : Form
     {
-        Calendario calendario = new Calendario();
+        Municipalidad muni;
+        string nombreFichero = "sistema.dat";
+
+        Infractor infractorSelected = null;
 
         public FormPrincipal()
         {
@@ -28,33 +31,51 @@ namespace Ej1_plan_de_pagos
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             string path = Application.StartupPath;
-            string nombreFichero = "sistema.dat";
+            
             FileStream fs = null;
-            try 
+            try
             {
-                fs = new FileStream(Path.Combine(path,nombreFichero),FileMode.OpenOrCreate, FileAccess.Read);
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(fs, )
-            } 
-            catch (Exception ex) 
-            {
+                string pathCompleto = Path.Combine(path, nombreFichero);
 
-            } 
-            finally 
+                if (File.Exists(pathCompleto))//cuando corre por primera vez, se supone que no existe
+                {
+                    fs = new FileStream(pathCompleto, FileMode.Open, FileAccess.Read);
+
+                    if (fs.Length > 0) //normalmente cuando se crea el fichero y no se hace el close queda de tamaño cero.
+                    {
+                        BinaryFormatter bf = new BinaryFormatter();
+                        muni = bf.Deserialize(fs) as Municipalidad;
+                    }
+                }
+            }
+            catch (Exception ex)
             {
+                //si hubo cambios en las clases va a dar error de deserialización
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (fs != null) fs.Close();
+            }
+
+            //preinicialización
+            if (muni == null)
+            {
+                muni = new Municipalidad();
             }
         }
 
         private void btnAgregarFeriado_Click(object sender, EventArgs e)
         {
             FormDatosFeriado fDatoFeriado = new FormDatosFeriado();
+                        
 
             if (fDatoFeriado.ShowDialog() == DialogResult.OK)
             {
                 DateTime dia = fDatoFeriado.pickFecha.Value;
                 string descripcion = fDatoFeriado.tbDescripcion.Text;
              
-                calendario.AgregarFeriado(dia, descripcion);
+                muni.Calendario.AgregarFeriado(dia, descripcion);
             }
         }
         
@@ -67,19 +88,17 @@ namespace Ej1_plan_de_pagos
                 double monto = Convert.ToDouble(tbMonto.Text);
                 int cantCuotas = Convert.ToInt32(nupCuotas.Value);
                 DateTime fechaAltaPlan = pickerInicio.Value;
-                
-                Infractor destinatario = new Infractor
+
+                if (infractorSelected == null)
                 {
-                    DNI = dni,
-                    ApelldosyNombres = nombre
-                };
+                    infractorSelected=muni.AgregarInfractor(dni, nombre);
+                }
 
-                PlanDePago plan = new PlanDePago(monto, cantCuotas, fechaAltaPlan,
-                                                    destinatario, calendario);
+                PlanDePago nuevoPlan = muni.CrearPlanDePagos(dni, monto, cantCuotas, fechaAltaPlan);
+                
+                tbDetalle.Text = nuevoPlan.VerDetalle();
 
-                tbDetalle.Text = plan.VerDetalle();
-
-                lbxPlanesGenerados.Items.Add(plan);
+                lbxPlanesGenerados.Items.Add(nuevoPlan);
 
                 #region limpiando controles
                 tbDni.Clear();
@@ -173,35 +192,44 @@ namespace Ej1_plan_de_pagos
 
         }
 
-
-
-        /*
-        private void btnNuevo_Click(object sender, EventArgs e)
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-            DateTime dtInicioPago = pickerInicio.Value;
+            string path = Application.StartupPath;
 
-            DateTime dtInicioPlan = new DateTime(dtInicioPago.Year, dtInicioPago.Month, 1).AddMonths(1);
+            FileStream fs = null;
+            try
+            {
+                string pathCompleto = Path.Combine(path, nombreFichero);
 
-            int dias = 0;
-            if (dtInicioPlan.DayOfWeek == DayOfWeek.Saturday)
-                dias = 2;
-            else if (dtInicioPlan.DayOfWeek == DayOfWeek.Sunday)
-                dias = 1;
-            dtInicioPlan = dtInicioPlan.AddDays(dias);
-
-            DateTime dtPrimerVencimiento = dtInicioPlan.AddDays(8 - 1);
-
-            tbDetalle.ClearSelected();
-            tbDetalle.Items.Clear();
-
-            tbDetalle.Items.Add(dtInicioPlan.ToShortDateString());
-
-            tbDetalle.Items.Add(dtPrimerVencimiento.ToShortDateString());
-
-            DateTime dtSegundoVencimiento = dtInicioPlan.AddDays(15 - 1);
-            tbDetalle.Items.Add(dtSegundoVencimiento.ToShortDateString());
+                fs = new FileStream(pathCompleto, FileMode.OpenOrCreate, FileAccess.Write);
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(fs, muni);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (fs != null) fs.Close();
+            }
         }
-        */
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int dni = Convert.ToInt32(tbDni.Text);
+
+            infractorSelected = muni.BuscarInfractor(dni);
+
+            if (infractorSelected == null)
+            {
+                tbApellidosYNombres.Enabled = true;
+            }
+            else
+            {
+                tbApellidosYNombres.Enabled = false;
+                gbDatosPago.Enabled = true;
+            }
+        }
     }
 }
