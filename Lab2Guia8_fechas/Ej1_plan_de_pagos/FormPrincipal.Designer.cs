@@ -33,6 +33,7 @@ namespace Ej1_plan_de_pagos
             this.btnNuevo = new System.Windows.Forms.Button();
             this.tbApellidosYNombres = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tbDni = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -55,7 +56,7 @@ namespace Ej1_plan_de_pagos
             this.importraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarPlanesDePagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.gbDatosPago.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupCuotas)).BeginInit();
@@ -97,6 +98,17 @@ namespace Ej1_plan_de_pagos
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Infractor";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(443, 27);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 59);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Buscar Infractor";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -292,17 +304,6 @@ namespace Ej1_plan_de_pagos
             this.exportarPlanesDePagoToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.exportarPlanesDePagoToolStripMenuItem.Text = "Exportar planes de pago";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(443, 19);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 59);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Buscar Infractor";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -364,6 +365,7 @@ namespace Ej1_plan_de_pagos
         private System.Windows.Forms.ToolStripMenuItem planesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportarPlanesDePagoToolStripMenuItem;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip toolTip2;
     }
 }
 

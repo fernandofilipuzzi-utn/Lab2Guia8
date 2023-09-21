@@ -39,7 +39,7 @@ namespace Ej1_plan_de_pagos
             // pickFecha
             // 
             this.pickFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.pickFecha.Location = new System.Drawing.Point(49, 33);
+            this.pickFecha.Location = new System.Drawing.Point(51, 34);
             this.pickFecha.Margin = new System.Windows.Forms.Padding(4);
             this.pickFecha.Name = "pickFecha";
             this.pickFecha.Size = new System.Drawing.Size(106, 22);
@@ -62,21 +62,21 @@ namespace Ej1_plan_de_pagos
             this.btnAceptar.Location = new System.Drawing.Point(69, 197);
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(100, 28);
+            this.btnAceptar.Size = new System.Drawing.Size(132, 41);
             this.btnAceptar.TabIndex = 2;
-            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.Text = "Agregar/Modificar Fecha";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
             this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(313, 197);
+            this.btnCancelar.Location = new System.Drawing.Point(283, 197);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(100, 28);
+            this.btnCancelar.Size = new System.Drawing.Size(116, 41);
             this.btnCancelar.TabIndex = 3;
-            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.Text = "Cerrar Sin Guardar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -93,7 +93,7 @@ namespace Ej1_plan_de_pagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 230);
+            this.ClientSize = new System.Drawing.Size(461, 242);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);

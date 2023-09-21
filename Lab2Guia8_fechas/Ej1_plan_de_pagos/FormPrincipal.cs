@@ -27,11 +27,11 @@ namespace Ej1_plan_de_pagos
         {
             InitializeComponent();
         }
-                
+
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             string path = Application.StartupPath;
-            
+
             FileStream fs = null;
             try
             {
@@ -65,20 +65,47 @@ namespace Ej1_plan_de_pagos
             }
         }
 
+        /*
+        Forma alternativa - ojo aquí para programación 1
         private void btnAgregarFeriado_Click(object sender, EventArgs e)
         {
             FormDatosFeriado fDatoFeriado = new FormDatosFeriado();
-                        
-
-            if (fDatoFeriado.ShowDialog() == DialogResult.OK)
-            {
-                DateTime dia = fDatoFeriado.pickFecha.Value;
-                string descripcion = fDatoFeriado.tbDescripcion.Text;
-             
-                muni.Calendario.AgregarFeriado(dia, descripcion);
-            }
+            fDatoFeriado.Calendario = muni.Calendario;
+            fDatoFeriado.ShowDialog();
         }
-        
+        */
+
+        /*Forma recomendada*/
+        private void btnAgregarFeriado_Click(object sender, EventArgs e)
+        {
+            FormDatosFeriado fDatoFeriado = new FormDatosFeriado();
+
+            fDatoFeriado.ShowDialog();
+
+            do
+            {
+                if (fDatoFeriado.DialogResult == DialogResult.OK)
+                {
+                    DateTime dia = fDatoFeriado.pickFecha.Value;
+                    string descripcion = fDatoFeriado.tbDescripcion.Text;
+
+                    muni.Calendario.AgregarFeriado(dia, descripcion);
+                }
+                else if (fDatoFeriado.DialogResult == DialogResult.Retry)
+                {
+                    DateTime dia = fDatoFeriado.pickFecha.Value;
+
+                    Feriado feriado=muni.Calendario.Buscar(dia);
+                    if (feriado != null)
+                        fDatoFeriado.tbDescripcion.Text = feriado.Descripcion;
+                    else
+                        fDatoFeriado.tbDescripcion.Clear();
+                }
+                fDatoFeriado.ShowDialog();
+
+            } while (fDatoFeriado.DialogResult!=DialogResult.Cancel);
+        }
+
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             if (Validar() == true)
@@ -91,11 +118,11 @@ namespace Ej1_plan_de_pagos
 
                 if (infractorSelected == null)
                 {
-                    infractorSelected=muni.AgregarInfractor(dni, nombre);
+                    infractorSelected = muni.AgregarInfractor(dni, nombre);
                 }
 
                 PlanDePago nuevoPlan = muni.CrearPlanDePagos(dni, monto, cantCuotas, fechaAltaPlan);
-                
+
                 tbDetalle.Text = nuevoPlan.VerDetalle();
 
                 lbxPlanesGenerados.Items.Add(nuevoPlan);
@@ -131,7 +158,7 @@ namespace Ej1_plan_de_pagos
                 tbMonto.BackColor = Color.Orange;
             }
 
-            return isNoOk==false;
+            return isNoOk == false;
         }
 
         private void tbDni_TextChanged(object sender, EventArgs e)
@@ -146,7 +173,7 @@ namespace Ej1_plan_de_pagos
 
         private void tbDni_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsNumber(e.KeyChar) ||  char.IsControl(e.KeyChar))
+            if (char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar))
             {
                 e.Handled = false;
             }
@@ -177,8 +204,8 @@ namespace Ej1_plan_de_pagos
         private void lbxPlanesGenerados_SelectedIndexChanged(object sender, EventArgs e)
         {
             PlanDePago plan = lbxPlanesGenerados.SelectedItem as PlanDePago;
-            
-            if(plan !=null)
+
+            if (plan != null)
                 tbDetalle.Text = plan.VerDetalle();
         }
 
@@ -217,18 +244,23 @@ namespace Ej1_plan_de_pagos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int dni = Convert.ToInt32(tbDni.Text);
-
-            infractorSelected = muni.BuscarInfractor(dni);
-
-            if (infractorSelected == null)
+            if (string.IsNullOrEmpty(tbDni.Text.Trim())==false)
             {
-                tbApellidosYNombres.Enabled = true;
-            }
-            else
-            {
-                tbApellidosYNombres.Enabled = false;
-                gbDatosPago.Enabled = true;
+                int dni = Convert.ToInt32(tbDni.Text);
+
+                infractorSelected = muni.BuscarInfractor(dni);
+
+                if (infractorSelected == null)
+                {
+                    tbApellidosYNombres.Enabled = true;
+                    
+                }
+                else
+                {
+                    tbApellidosYNombres.Text = infractorSelected.ApelldosYNombres;
+                    tbApellidosYNombres.Enabled = false;
+                    gbDatosPago.Enabled = true;
+                }
             }
         }
     }
