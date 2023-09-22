@@ -9,19 +9,19 @@ namespace Ej1_plan_de_pagos.Modelo
     [Serializable]
     class Infractor : IComparable
     {
-        public int DNI { get; set; }
+        public int Dni { get; set; }
         public string ApelldosYNombres { get; set; }
 
         public Infractor() { }
 
         public Infractor(int dni)
         {
-            this.DNI = dni;
+            this.Dni = dni;
         }
 
         public Infractor(int dni, string apellidoYNombre)
         {
-            this.DNI = dni;
+            this.Dni = dni;
             this.ApelldosYNombres = apellidoYNombre;
         }
 
@@ -30,13 +30,13 @@ namespace Ej1_plan_de_pagos.Modelo
             int resultado = -1;
             Infractor infractor = obj as Infractor;
             if (infractor != null)
-                resultado = this.DNI.CompareTo(infractor.DNI);
+                resultado = this.Dni.CompareTo(infractor.Dni);
             return resultado;
         }
 
         public override string ToString()
         {
-            return $"{ApelldosYNombres}({DNI})";
+            return $"{ApelldosYNombres}({Dni})";
         }
     }
 }

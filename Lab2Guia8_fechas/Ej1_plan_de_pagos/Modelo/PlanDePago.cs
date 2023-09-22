@@ -22,17 +22,20 @@ namespace Ej1_plan_de_pagos.Modelo
                 return cantidadCuotas;
             }
         }
-
+        public double Monto { get; private set; }
         public DateTime FechaAlta { get; private set; }
 
         public PlanDePago(double monto, int cantCuotas, DateTime fechaAlta,
                             Infractor destinatario,  Calendario calendario)
         {
+            this.Monto = monto;
             this.Destinatario = destinatario;
             this.cantidadCuotas = cantCuotas;
             this.FechaAlta = fechaAlta;
 
-            double montoCuota = monto / cantCuotas;
+            double montoCuota = 0;
+            if (cantCuotas!=0)
+                montoCuota = monto / cantCuotas;
 
             DateTime fechaMesProximo = PrimerDiaHabilMesSiguiente(fechaAlta, calendario);
 
@@ -103,7 +106,7 @@ namespace Ej1_plan_de_pagos.Modelo
 
         public override string ToString()
         {
-            return $"Plan de pagos: {Destinatario.ApelldosYNombres}";
+            return $"Fecha: {FechaAlta:dd/MM/yyyy}, Cuotas:{cuotas}, Monto:{this.Monto:f2}";
         }
 
         public string VerDetalle() 

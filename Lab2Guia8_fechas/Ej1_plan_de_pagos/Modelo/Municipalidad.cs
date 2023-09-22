@@ -1,4 +1,5 @@
 ﻿using CalendarioClassLib.Modelo;
+using Ej1.Modelo.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,12 @@ namespace Ej1_plan_de_pagos.Modelo
     {
         public Calendario Calendario { get; set; } = new Calendario();
 
-        List<PlanDePago> planes = new List<PlanDePago>();
+        List<PlanDePago> planes= new List<PlanDePago>(); 
         List<Infractor> infractores = new List<Infractor>();
+
+        public Municipalidad()
+        {
+        }
 
         public Infractor BuscarInfractor(int dni)
         {
@@ -37,7 +42,71 @@ namespace Ej1_plan_de_pagos.Modelo
         {
             Infractor destinatario = BuscarInfractor(dni);
             PlanDePago nuevo = new PlanDePago(monto, cantCuotas, fechaAltaPlan, destinatario, Calendario);
+
+            planes.Add(nuevo);
+
             return nuevo;
         }
+
+        public void ImportarInfracciones(List<string> lista)
+        {
+            List<Infractor> importados = new List<Infractor>();
+
+            for (int linea = 1; linea < lista.Count; linea++)
+            {
+                string[] campos = lista[linea].Split(';');
+
+                string dni = campos[0];
+                string apellidoYNombre = campos[1];
+                string telefono = campos[2];
+                string email = campos[3];
+                string monto = campos[4];
+
+                try
+                {
+                    dni = Validator.NormalizarYValidarDNI(dni);
+                    apellidoYNombre = Validator.NormalizarYValidarApellidoYNombre(apellidoYNombre);
+                    telefono = Validator.NormalizarYValidarTelefono(telefono);
+                    email = Validator.NormalizarYValidarEmail(email);
+                    monto = Validator.NormalizarYValidarDecimal(monto);
+
+                    importados.Add( new Infractor(Convert.ToInt32(dni), apellidoYNombre));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error en línea {linea + 1}", ex);
+                }
+            }
+
+            //si el listado fue ok se incresa
+            foreach (Infractor reg in importados)
+            {
+                //conviene trabajar con un sortedlist
+                infractores.Sort();
+                int idx = infractores.BinarySearch(reg);
+
+                if (idx > -1)
+                {
+                 //   infractores[idx].Monto += reg.Monto;
+                //    infractores[idx].Telefono = reg.Telefono;
+                }
+                else
+                {
+                    infractores.Add(reg);
+                }
+            }
+
+        }
+
+        public List<PlanDePago> VerPlanesDelInfractor(int dni)
+        {
+            List<PlanDePago> planesDelInfractor = new List<PlanDePago>();
+            foreach (PlanDePago plan in planes)
+            {
+                if (plan.Destinatario.Dni == dni)
+                    planesDelInfractor.Add(plan);
+            }
+            return planesDelInfractor;
+        }
     }
-}
+ }

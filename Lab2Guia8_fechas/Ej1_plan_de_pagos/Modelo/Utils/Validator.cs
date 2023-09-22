@@ -29,10 +29,37 @@ namespace Ej1.Modelo.Utils
             //
             if (esLongitudDNI == false)
                 throw new Exception($"DNI: longitud:{dni.Length}, esperado entre 7 y 8 digitos.");
-            if(tieneChrValidosDNI==false)
+            if (tieneChrValidosDNI == false)
                 throw new Exception($"DNI: {msgChrNoValidosDNI}");
 
             return dni;
+        }
+
+        static public string NormalizarYValidarApellidoYNombre(string apellidoYNombre)
+        {
+            //normalizar apellido y nombre.
+            apellidoYNombre = apellidoYNombre.Trim().ToUpper();
+            //
+            //verificar longitud nombre >0
+            bool esLongitudApellidoYNombre = apellidoYNombre.Length > 0;
+            //
+            //verificar si solo hay caracteres numéricos
+            bool tieneChrValidosApellidoYNombre = true;
+            string msgChrNoValidosApellidoYNombre = "";
+            for (int idx = 0; idx < apellidoYNombre.Length; idx++)
+            {
+                bool esValido = Char.IsLetter(apellidoYNombre[idx]) || apellidoYNombre[idx] == ',' || apellidoYNombre[idx] == ' '; ;
+                tieneChrValidosApellidoYNombre &= esValido;
+                if (esValido == false)
+                    msgChrNoValidosApellidoYNombre += $"{{pos:{idx + 1}, char:{{ {apellidoYNombre[idx]}}} }},";
+            }
+            //
+            if (esLongitudApellidoYNombre == false)
+                throw new Exception($"APELLIDOYNOMBRE: longitud:{apellidoYNombre.Length}, esperado mayor a 0 digitos.");
+            if (tieneChrValidosApellidoYNombre == false)
+                throw new Exception($"APELLIDOYNOMBRE: {msgChrNoValidosApellidoYNombre}");
+
+            return apellidoYNombre;
         }
 
         static public string NormalizarYValidarTelefono(string telefono)

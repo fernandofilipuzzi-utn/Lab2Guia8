@@ -106,117 +106,36 @@ namespace Ej1_plan_de_pagos
             } while (fDatoFeriado.DialogResult!=DialogResult.Cancel);
         }
 
-        private void btnNuevo_Click(object sender, EventArgs e)
+        private void btnCrearPlan_Click(object sender, EventArgs e)
         {
-            if (Validar() == true)
-            {
-                int dni = Convert.ToInt32(tbDni.Text);
-                string nombre = tbApellidosYNombres.Text;
-                double monto = Convert.ToDouble(tbMonto.Text);
-                int cantCuotas = Convert.ToInt32(nupCuotas.Value);
-                DateTime fechaAltaPlan = pickerInicio.Value;
+            FormEdicionPlan fPlan = new FormEdicionPlan();
 
-                if (infractorSelected == null)
+            if (infractorSelected != null)
+            {
+                fPlan.tbDni.Text = infractorSelected.Dni.ToString();
+                fPlan.tbApellidosYNombres.Text = infractorSelected.ApelldosYNombres.ToString();
+
+                if (fPlan.ShowDialog() == DialogResult.OK)
                 {
-                    infractorSelected = muni.AgregarInfractor(dni, nombre);
+                    double monto = Convert.ToDouble(fPlan.tbMonto.Text);
+                    int cantCuotas = Convert.ToInt32(fPlan.nupCuotas.Value);
+                    DateTime fechaAltaPlan = fPlan.pickerInicio.Value;
+
+                    PlanDePago nuevoPlan = muni.CrearPlanDePagos(infractorSelected.Dni, monto, cantCuotas, fechaAltaPlan);
+
+                    FormResumen fResumen = new FormResumen();
+                    fResumen.tbResumen.Text=nuevoPlan.VerDetalle();
+                    fResumen.ShowDialog();
+                    fResumen.Dispose();
                 }
-
-                PlanDePago nuevoPlan = muni.CrearPlanDePagos(dni, monto, cantCuotas, fechaAltaPlan);
-
-                tbDetalle.Text = nuevoPlan.VerDetalle();
-
-                lbxPlanesGenerados.Items.Add(nuevoPlan);
-
-                #region limpiando controles
-                tbDni.Clear();
-                tbApellidosYNombres.Clear();
-                tbMonto.Clear();
-                nupCuotas.Value = 0;
-                #endregion
-            }
-        }
-
-        public bool Validar()
-        {
-            bool isNoOk = false;
-
-            if (string.IsNullOrEmpty(tbDni.Text.Trim()) == true)
-            {
-                isNoOk |= true;
-                tbDni.BackColor = Color.Orange;
             }
 
-            if (string.IsNullOrEmpty(tbApellidosYNombres.Text.Trim()) == true)
-            {
-                isNoOk |= true;
-                tbApellidosYNombres.BackColor = Color.Orange;
-            }
-
-            if (string.IsNullOrEmpty(tbMonto.Text.Trim()) == true)
-            {
-                isNoOk |= true;
-                tbMonto.BackColor = Color.Orange;
-            }
-
-            return isNoOk == false;
-        }
-
-        private void tbDni_TextChanged(object sender, EventArgs e)
-        {
-            tbDni.BackColor = Color.White;
-        }
-
-        private void tbMonto_TextChanged(object sender, EventArgs e)
-        {
-            tbMonto.BackColor = Color.White;
-        }
-
-        private void tbDni_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void tbApellidosYNombres_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            tbApellidosYNombres.BackColor = Color.White;
-        }
-
-        private void tbMonto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsNumber(e.KeyChar) || e.KeyChar == ',' ||
-                    char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void lbxPlanesGenerados_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PlanDePago plan = lbxPlanesGenerados.SelectedItem as PlanDePago;
-
-            if (plan != null)
-                tbDetalle.Text = plan.VerDetalle();
+            fPlan.Dispose();
         }
 
         private void cerrarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void importraciónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -250,18 +169,86 @@ namespace Ej1_plan_de_pagos
 
                 infractorSelected = muni.BuscarInfractor(dni);
 
-                if (infractorSelected == null)
+                if (infractorSelected != null)
                 {
-                    tbApellidosYNombres.Enabled = true;
-                    
+                    tbApellidosYNombres.Text = infractorSelected.ApelldosYNombres;
+                    btnCrearPlan.Enabled = true;
+
+                    comboBox1.Enabled = true;
+                    List<PlanDePago> planes=muni.VerPlanesDelInfractor(dni);
+                    comboBox1.Items.AddRange(planes.ToArray());
                 }
                 else
                 {
-                    tbApellidosYNombres.Text = infractorSelected.ApelldosYNombres;
-                    tbApellidosYNombres.Enabled = false;
-                    gbDatosPago.Enabled = true;
+                    tbApellidosYNombres.Text = "";
+                    btnCrearPlan.Enabled = false;
                 }
             }
+        }
+
+        private void btnConsultarPlanes_Click(object sender, EventArgs e)
+        {
+            PlanDePago selected=comboBox1.SelectedItem as PlanDePago;
+            if (selected != null)
+            {
+                FormResumen fResumen = new FormResumen();
+                fResumen.tbResumen.Text = selected.VerDetalle();
+                fResumen.ShowDialog();
+                fResumen.Dispose();
+            }
+        }
+
+        private void toolTip3_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void importraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> listado = new List<string>();
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                StreamWriter sw = null;
+                try
+                {
+                    string path = openFileDialog1.FileName;
+
+                    //creamos el manejador
+                    fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);
+
+                    //flujo de texto
+                    StreamReader sr = new StreamReader(fs);
+
+                    //ciclo de escritura
+                    while(sr.EndOfStream==false)
+                    {
+                        string linea=sr.ReadLine();
+                        listado.Add(linea);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    //tratamiento de la excepción
+                }
+                finally
+                {
+                    //cerrando el flujo
+                    if (sw != null) sw.Close();
+                    if (fs != null) fs.Close();
+                }
+            }
+
+            try
+            {
+                muni.ImportarInfracciones(listado);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormEdicionPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEdicionPlan.Designer.cs">
+      <DependentUpon>FormEdicionPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDatosFeriado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,12 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormResumen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormResumen.Designer.cs">
+      <DependentUpon>FormResumen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modelo\Cuota.cs" />
     <Compile Include="Modelo\Infractor.cs" />
     <Compile Include="Modelo\Municipalidad.cs" />
@@ -65,11 +77,17 @@
     <Compile Include="Modelo\Utils\Validator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormEdicionPlan.resx">
+      <DependentUpon>FormEdicionPlan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDatosFeriado.resx">
       <DependentUpon>FormDatosFeriado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormResumen.resx">
+      <DependentUpon>FormResumen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -81,6 +99,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="archivos_prueba\infracciones_sin_fallos.csv" />
+    <None Include="archivos_prueba\infracciones_con_fallos.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
