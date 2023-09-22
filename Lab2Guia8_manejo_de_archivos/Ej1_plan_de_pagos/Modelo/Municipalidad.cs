@@ -40,17 +40,24 @@ namespace Ej1_plan_de_pagos.Modelo
 
         public PlanDePago CrearPlanDePagos(int dni, double monto, int cantCuotas,DateTime fechaAltaPlan)
         {
+            PlanDePago nuevo = null;
             Infractor destinatario = BuscarInfractor(dni);
-            PlanDePago nuevo = new PlanDePago(monto, cantCuotas, fechaAltaPlan, destinatario, Calendario);
-
-            planes.Add(nuevo);
+            if (destinatario != null)
+            {
+                nuevo = new PlanDePago(monto, cantCuotas, fechaAltaPlan, destinatario, Calendario);
+                planes.Add(nuevo);
+            }
+            else 
+            {
+                throw new Exception($"Error al crear ale plan, infractor no encontrado (dni:{dni})");
+            }
 
             return nuevo;
         }
 
         public void ImportarInfracciones(List<string> lista)
         {
-            List<Infractor> importados = new List<Infractor>();
+            List<string []> importados = new List<string []>();
 
             for (int linea = 1; linea < lista.Count; linea++)
             {
@@ -70,7 +77,7 @@ namespace Ej1_plan_de_pagos.Modelo
                     email = Validator.NormalizarYValidarEmail(email);
                     monto = Validator.NormalizarYValidarDecimal(monto);
 
-                    importados.Add( new Infractor(Convert.ToInt32(dni), apellidoYNombre));
+                    importados.Add( new string[] { dni, apellidoYNombre, telefono, email, monto} );
                 }
                 catch (Exception ex)
                 {
@@ -78,24 +85,27 @@ namespace Ej1_plan_de_pagos.Modelo
                 }
             }
 
-            //si el listado fue ok se incresa
-            foreach (Infractor reg in importados)
+            //si el listado fue ok se ingresa
+            //normalmente por simplicidad se hace este proceso todo en un solo bucle.
+            //aquí se dividió en tres fases, lectura, validación y la importación propiamente.
+            foreach (string[] reg in importados)
             {
+                int dni = Convert.ToInt32(reg[0]);
+                string apellidoYNombre = reg[1];
+                double monto = Convert.ToDouble(reg[4]);
+                int cantCuotas = 1;
+                DateTime hoy = DateTime.Today;
+
                 //conviene trabajar con un sortedlist
                 infractores.Sort();
-                int idx = infractores.BinarySearch(reg);
+                int idx = infractores.BinarySearch(new Infractor(dni));
 
-                if (idx > -1)
+                if (idx <= -1)
                 {
-                 //   infractores[idx].Monto += reg.Monto;
-                //    infractores[idx].Telefono = reg.Telefono;
+                    this.AgregarInfractor( dni, apellidoYNombre);
                 }
-                else
-                {
-                    infractores.Add(reg);
-                }
+                this.CrearPlanDePagos(dni, monto, cantCuotas, hoy);
             }
-
         }
 
         public List<PlanDePago> VerPlanesDelInfractor(int dni)

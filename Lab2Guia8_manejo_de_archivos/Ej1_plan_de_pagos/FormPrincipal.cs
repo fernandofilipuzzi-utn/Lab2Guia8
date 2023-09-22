@@ -255,7 +255,7 @@ namespace Ej1_plan_de_pagos
                 }
                 catch(Exception ex)
                 {
-                    //tratamiento de la excepción
+                    MessageBox.Show("Error en la lectura del fichero!");
                 }
                 finally
                 {
@@ -271,9 +271,8 @@ namespace Ej1_plan_de_pagos
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message.Replace("\r\n","|"));
             }
-
         }
 
         private void btnClearBackColor_TextChanged(object sender, EventArgs e)
