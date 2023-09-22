@@ -114,22 +114,39 @@ namespace Ej1_plan_de_pagos
             {
                 fPlan.tbDni.Text = infractorSelected.Dni.ToString();
                 fPlan.tbApellidosYNombres.Text = infractorSelected.ApelldosYNombres.ToString();
-
-                if (fPlan.ShowDialog() == DialogResult.OK)
-                {
-                    double monto = Convert.ToDouble(fPlan.tbMonto.Text);
-                    int cantCuotas = Convert.ToInt32(fPlan.nupCuotas.Value);
-                    DateTime fechaAltaPlan = fPlan.pickerInicio.Value;
-
-                    PlanDePago nuevoPlan = muni.CrearPlanDePagos(infractorSelected.Dni, monto, cantCuotas, fechaAltaPlan);
-
-                    FormResumen fResumen = new FormResumen();
-                    fResumen.tbResumen.Text=nuevoPlan.VerDetalle();
-                    fResumen.ShowDialog();
-                    fResumen.Dispose();
-                }
+                fPlan.tbApellidosYNombres.Enabled = false;
+                fPlan.tbDni.Enabled = false;
             }
+            else
+            {
+                fPlan.tbDni.Text = tbDni.Text;
+                fPlan.tbApellidosYNombres.Enabled = true;
+            }                
 
+            if (fPlan.ShowDialog() == DialogResult.OK)
+            {
+                
+                double monto = Convert.ToDouble(fPlan.tbMonto.Text);
+                int cantCuotas = Convert.ToInt32(fPlan.nupCuotas.Value);
+                DateTime fechaAltaPlan = fPlan.pickerInicio.Value;
+
+                //lo agrega si no lo encontro 
+                if (infractorSelected == null)
+                {
+                    int dni = Convert.ToInt32(fPlan.tbDni.Text);
+                    string apellidoYNombre = fPlan.tbApellidosYNombres.Text;
+
+                    infractorSelected = muni.AgregarInfractor(dni, apellidoYNombre);
+                }
+
+                PlanDePago nuevoPlan = muni.CrearPlanDePagos(infractorSelected.Dni, monto, cantCuotas, fechaAltaPlan);
+
+                FormResumen fResumen = new FormResumen();
+                fResumen.tbResumen.Text=nuevoPlan.VerDetalle();
+                fResumen.ShowDialog();
+                fResumen.Dispose();
+            }
+            
             fPlan.Dispose();
         }
 
@@ -174,21 +191,22 @@ namespace Ej1_plan_de_pagos
                     tbApellidosYNombres.Text = infractorSelected.ApelldosYNombres;
                     btnCrearPlan.Enabled = true;
 
-                    comboBox1.Enabled = true;
+                    cbPlanesDelInfractor.Enabled = true;
                     List<PlanDePago> planes=muni.VerPlanesDelInfractor(dni);
-                    comboBox1.Items.AddRange(planes.ToArray());
+                    cbPlanesDelInfractor.Items.AddRange(planes.ToArray());
                 }
                 else
                 {
                     tbApellidosYNombres.Text = "";
-                    btnCrearPlan.Enabled = false;
+                    tbApellidosYNombres.Enabled = false;
+                    btnCrearPlan.Enabled = true;
                 }
             }
         }
 
         private void btnConsultarPlanes_Click(object sender, EventArgs e)
         {
-            PlanDePago selected=comboBox1.SelectedItem as PlanDePago;
+            PlanDePago selected=cbPlanesDelInfractor.SelectedItem as PlanDePago;
             if (selected != null)
             {
                 FormResumen fResumen = new FormResumen();
@@ -198,9 +216,16 @@ namespace Ej1_plan_de_pagos
             }
         }
 
-        private void toolTip3_Popup(object sender, PopupEventArgs e)
+        private void tbDni_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
 
         private void importraciónToolStripMenuItem_Click(object sender, EventArgs e)
@@ -249,6 +274,13 @@ namespace Ej1_plan_de_pagos
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void btnClearBackColor_TextChanged(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+                btn.BackColor = Color.White;
         }
     }
 }

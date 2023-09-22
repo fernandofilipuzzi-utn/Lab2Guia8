@@ -39,7 +39,7 @@ namespace Ej1_plan_de_pagos
             // pickFecha
             // 
             this.pickFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.pickFecha.Location = new System.Drawing.Point(57, 42);
+            this.pickFecha.Location = new System.Drawing.Point(17, 28);
             this.pickFecha.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pickFecha.Name = "pickFecha";
             this.pickFecha.Size = new System.Drawing.Size(133, 26);
@@ -48,7 +48,7 @@ namespace Ej1_plan_de_pagos
             // 
             // tbDescripcion
             // 
-            this.tbDescripcion.Location = new System.Drawing.Point(57, 119);
+            this.tbDescripcion.Location = new System.Drawing.Point(17, 84);
             this.tbDescripcion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbDescripcion.Multiline = true;
             this.tbDescripcion.Name = "tbDescripcion";
@@ -59,7 +59,7 @@ namespace Ej1_plan_de_pagos
             // btnAceptar
             // 
             this.btnAceptar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAceptar.Location = new System.Drawing.Point(78, 246);
+            this.btnAceptar.Location = new System.Drawing.Point(46, 210);
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(148, 51);
@@ -71,7 +71,7 @@ namespace Ej1_plan_de_pagos
             // btnCancelar
             // 
             this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(318, 246);
+            this.btnCancelar.Location = new System.Drawing.Point(271, 210);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(130, 51);
@@ -82,7 +82,7 @@ namespace Ej1_plan_de_pagos
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 94);
+            this.label1.Location = new System.Drawing.Point(13, 59);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 20);
@@ -93,7 +93,7 @@ namespace Ej1_plan_de_pagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 302);
+            this.ClientSize = new System.Drawing.Size(471, 264);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);

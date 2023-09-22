@@ -33,6 +33,8 @@ namespace Ej1_plan_de_pagos
             this.btnCrearPlan = new System.Windows.Forms.Button();
             this.tbApellidosYNombres = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbPlanesDelInfractor = new System.Windows.Forms.ComboBox();
             this.btnConsultarPlanes = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,8 +53,6 @@ namespace Ej1_plan_de_pagos
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +80,7 @@ namespace Ej1_plan_de_pagos
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.cbPlanesDelInfractor);
             this.groupBox1.Controls.Add(this.btnConsultarPlanes);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label2);
@@ -97,6 +97,23 @@ namespace Ej1_plan_de_pagos
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Infractor";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(40, 125);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 20);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Planes creados";
+            // 
+            // cbPlanesDelInfractor
+            // 
+            this.cbPlanesDelInfractor.FormattingEnabled = true;
+            this.cbPlanesDelInfractor.Location = new System.Drawing.Point(184, 122);
+            this.cbPlanesDelInfractor.Name = "cbPlanesDelInfractor";
+            this.cbPlanesDelInfractor.Size = new System.Drawing.Size(224, 28);
+            this.cbPlanesDelInfractor.TabIndex = 26;
+            // 
             // btnConsultarPlanes
             // 
             this.btnConsultarPlanes.Location = new System.Drawing.Point(443, 109);
@@ -104,7 +121,7 @@ namespace Ej1_plan_de_pagos
             this.btnConsultarPlanes.Name = "btnConsultarPlanes";
             this.btnConsultarPlanes.Size = new System.Drawing.Size(113, 53);
             this.btnConsultarPlanes.TabIndex = 25;
-            this.btnConsultarPlanes.Text = "Consultar planes existente";
+            this.btnConsultarPlanes.Text = "Ver Detalle plan";
             this.btnConsultarPlanes.UseVisualStyleBackColor = true;
             this.btnConsultarPlanes.Click += new System.EventHandler(this.btnConsultarPlanes_Click);
             // 
@@ -135,6 +152,8 @@ namespace Ej1_plan_de_pagos
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(224, 26);
             this.tbDni.TabIndex = 18;
+            this.tbDni.TextChanged += new System.EventHandler(this.btnClearBackColor_TextChanged);
+            this.tbDni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDni_KeyPress);
             // 
             // label1
             // 
@@ -231,23 +250,6 @@ namespace Ej1_plan_de_pagos
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(184, 122);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(224, 28);
-            this.comboBox1.TabIndex = 26;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 125);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 20);
-            this.label3.TabIndex = 27;
-            this.label3.Text = "Planes creados";
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -263,7 +265,6 @@ namespace Ej1_plan_de_pagos
             this.MaximizeBox = false;
             this.Name = "FormPrincipal";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema de plan de pagos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
@@ -299,7 +300,7 @@ namespace Ej1_plan_de_pagos
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbPlanesDelInfractor;
     }
 }
 

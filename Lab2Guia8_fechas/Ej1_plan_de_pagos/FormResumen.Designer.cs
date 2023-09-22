@@ -62,6 +62,7 @@ namespace Ej1_plan_de_pagos
             this.Controls.Add(this.tbResumen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormResumen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormResumen";
             this.ResumeLayout(false);
             this.PerformLayout();

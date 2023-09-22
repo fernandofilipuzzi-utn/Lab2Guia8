@@ -19,7 +19,7 @@ namespace Ej1_plan_de_pagos
 
         private void btnCrearPlan_Click(object sender, EventArgs e)
         {
-
+            Validar();
         }
 
         private void tbApellidosYNombres_KeyPress(object sender, KeyPressEventArgs e)
@@ -65,16 +65,6 @@ namespace Ej1_plan_de_pagos
             return isNoOk == false;
         }
 
-        private void tbDni_TextChanged(object sender, EventArgs e)
-        {
-            tbDni.BackColor = Color.White;
-        }
-
-        private void tbMonto_TextChanged(object sender, EventArgs e)
-        {
-            tbMonto.BackColor = Color.White;
-        }
-
         private void tbDni_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar))
@@ -85,6 +75,18 @@ namespace Ej1_plan_de_pagos
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnClearBackColor_TextChanged(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if(btn !=null)
+                btn.BackColor = Color.White;
+        }
+
+        private void nupCuotas_ValueChanged(object sender, EventArgs e)
+        {
+            nupCuotas.BackColor = Color.White;
         }
     }
 }
