@@ -25,6 +25,19 @@ namespace Ej1_plan_de_pagos.Modelo
         public double Monto { get; private set; }
         public DateTime FechaAlta { get; private set; }
 
+        public double MontoTotalFinanciado 
+        {
+            get
+            {
+                double monto=0;
+                foreach (Cuota cuota in cuotas)
+                {
+                    monto += cuota.MontoPrimerVenc;
+                }
+                return monto;
+            }
+        }
+
         public PlanDePago(double monto, int cantCuotas, DateTime fechaAlta,
                             Infractor destinatario,  Calendario calendario)
         {

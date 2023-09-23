@@ -237,6 +237,7 @@ namespace Ej1_plan_de_pagos
             this.exportarPlanesDePagoToolStripMenuItem.Name = "exportarPlanesDePagoToolStripMenuItem";
             this.exportarPlanesDePagoToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.exportarPlanesDePagoToolStripMenuItem.Text = "Exportar planes de pago";
+            this.exportarPlanesDePagoToolStripMenuItem.Click += new System.EventHandler(this.exportarPlanesDePagoToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 

@@ -232,10 +232,13 @@ namespace Ej1_plan_de_pagos
         {
             List<string> listado = new List<string>();
 
+            openFileDialog1.Filter = "archivo csv (*.csv)|*.csv|archivo texto plano(*.txt) | *.txt | otros(*.*) | *.* ";
+            openFileDialog1.FilterIndex = 1;
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 FileStream fs = null;
-                StreamWriter sw = null;
+                StreamReader sr = null;
                 try
                 {
                     string path = openFileDialog1.FileName;
@@ -244,9 +247,9 @@ namespace Ej1_plan_de_pagos
                     fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);
 
                     //flujo de texto
-                    StreamReader sr = new StreamReader(fs);
+                    sr = new StreamReader(fs);
 
-                    //ciclo de escritura
+                    //ciclo de lectura
                     while(sr.EndOfStream==false)
                     {
                         string linea=sr.ReadLine();
@@ -255,13 +258,16 @@ namespace Ej1_plan_de_pagos
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show("Error en la lectura del fichero!");
+                    MessageBox.Show(ex.Message, "Error en el proceso de importación.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
                     //cerrando el flujo
-                    if (sw != null) sw.Close();
-                    if (fs != null) fs.Close();
+                    if (fs != null)
+                    {
+                        if (sr != null) sr.Close();
+                        fs.Close();
+                    }
                 }
             }
 
@@ -280,6 +286,79 @@ namespace Ej1_plan_de_pagos
             Button btn = sender as Button;
             if (btn != null)
                 btn.BackColor = Color.White;
+        }
+
+        private void exportarPlanesDePagoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> listado = new List<string>();
+
+            saveFileDialog1.Filter = "archivo csv (*.csv)|*.csv|archivo texto plano(*.txt) | *.txt | otros(*.*) | *.* ";
+            saveFileDialog1.FilterIndex = 1;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                StreamWriter sw = null;
+                try
+                {
+                    string path = saveFileDialog1.FileName;
+
+                    //creamos el manejador
+                    fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+
+                    //flujo de texto
+                    sw = new StreamWriter(fs);
+
+                    //ciclo de escritura
+                    string linea = "";
+
+                    #region creando la cabecera
+                    linea = $"Infractor; DNI; Apellido Y Nombre";
+                    sw.WriteLine(linea);
+                    linea = $"PlanDePago; Monto; Cantidad Cuotas; Fecha de Alta; Monto Financiado";
+                    sw.WriteLine(linea);
+                    linea = $"Cuota; numero; Monto Base; Porc. Pago Voluntario; Monto Voluntario; Fecha Primer venc.; Fecha Seg. Venc.;  Sobrecargo; Monto Segundo Vencimiento";
+                    sw.WriteLine(linea);
+                    #endregion
+
+                    for (int n=0; n<muni.CantidadInfractores; n++)
+                    {
+                        Infractor infr = muni.VerInfractor(n);
+
+                        linea =$"{ "Infractor"}; {infr.Dni.ToString()}; {infr.ApelldosYNombres}";
+                        sw.WriteLine(linea);
+
+                        foreach(PlanDePago plan in muni.VerPlanesDelInfractor(infr.Dni))
+                        {
+                            linea = $"{"PlanDePago"};{plan.Monto.ToString("0.00")};{plan.CantidadCuotas};" +
+                                        $"{plan.FechaAlta:dd/MM/yyyy};{plan.MontoTotalFinanciado:f2}";
+                            sw.WriteLine(linea);
+
+                            for (int m=0; m<plan.CantidadCuotas; m++)
+                            {
+                                Cuota cuota = plan.VerCuota(m);
+                                linea = $"Cuota;{cuota.Numero};{cuota.MontoBase:f2};{cuota.PorcenVoluntario}" +
+                                    $"{cuota.FechaPrimerVenc:dd/MM/yyyy};{cuota.FechaSegundoVenc:dd/MM/yyyy};" +
+                                    $"{cuota.SobreCargoMontoSegundoVenc};{cuota.MontoSegundoVenc}";
+                                sw.WriteLine(linea);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error en el proceso de exportación.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    //cerrando el flujo
+                    if (fs != null)
+                    {
+                        if (sw != null) sw.Close();
+                        fs.Close();
+                    }
+                }
+            }
         }
     }
 }

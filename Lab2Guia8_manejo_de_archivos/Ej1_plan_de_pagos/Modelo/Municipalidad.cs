@@ -118,5 +118,11 @@ namespace Ej1_plan_de_pagos.Modelo
             }
             return planesDelInfractor;
         }
+
+        public int CantidadInfractores { get { return infractores.Count; } }
+        public Infractor VerInfractor(int idx)
+        {
+            return infractores[idx];
+        }
     }
  }
